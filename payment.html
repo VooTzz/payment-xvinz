@@ -14,6 +14,7 @@
       position: relative;
     }
 
+    /* Efek hologram shimmer tenang */
     .hologram {
       position: fixed;
       top: 0;
@@ -50,8 +51,8 @@
     }
 
     .profile img {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid #4CAF50;
@@ -92,7 +93,7 @@
       color: #fff;
     }
 
-    button.copy-btn, .wa-btn {
+    button.copy-btn {
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -102,12 +103,9 @@
       cursor: pointer;
       width: 100%;
       transition: background 0.3s;
-      display: block;
-      text-align: center;
-      text-decoration: none;
     }
 
-    button.copy-btn:hover, .wa-btn:hover {
+    button.copy-btn:hover {
       background-color: #45a049;
     }
 
@@ -117,16 +115,6 @@
       color: #aaa;
       margin-top: 25px;
     }
-
-    .whatsapp-section {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    .whatsapp-section p {
-      margin-bottom: 10px;
-      color: #ccc;
-    }
   </style>
 </head>
 <body>
@@ -134,44 +122,32 @@
   <div class="hologram"></div>
 
   <div class="container">
-    <!-- Tentang Saya -->
     <div class="profile">
       <img src="https://files.catbox.moe/8euuai.jpg" alt="Foto Profil">
       <h2>XvinzzYap</h2>
-      <p>Developer & Admin | Silakan transfer ke salah satu metode berikut</p>
+      <p>Developer & Admin | Transfer ke salah satu metode berikut</p>
     </div>
 
-    <!-- DANA -->
     <div class="payment-method">
       <h3>DANA</h3>
       <div class="number-box" id="dana-number">082133051495</div>
       <button class="copy-btn" onclick="copyText('dana-number')">Salin Nomor DANA</button>
     </div>
 
-    <!-- OVO -->
     <div class="payment-method">
       <h3>OVO</h3>
       <div class="number-box" id="ovo-number">082133051495</div>
       <button class="copy-btn" onclick="copyText('ovo-number')">Salin Nomor OVO</button>
     </div>
 
-    <!-- GoPay -->
     <div class="payment-method">
       <h3>GoPay</h3>
       <div class="number-box" id="gopay-number">082133051495</div>
       <button class="copy-btn" onclick="copyText('gopay-number')">Salin Nomor GoPay</button>
     </div>
 
-    <!-- WhatsApp -->
-    <div class="whatsapp-section">
-      <p>Setelah transfer, kirim bukti ke WhatsApp:</p>
-      <a class="wa-btn" href="https://wa.me/6282313746307?text=Halo%20saya%20sudah%20melakukan%20pembayaran" target="_blank">
-        Kirim Bukti via WhatsApp
-      </a>
-    </div>
-
     <div class="footer-note">
-      Admin akan segera memverifikasi setelah menerima bukti.
+      Kirim bukti transfer ke WhatsApp/Telegram untuk konfirmasi.
     </div>
   </div>
 
