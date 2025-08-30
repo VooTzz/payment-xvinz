@@ -1,164 +1,305 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pembayaran ke Admin</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: #0f0f0f;
-      color: #fff;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Efek hologram shimmer tenang */
-    .hologram {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(135deg, rgba(0,255,255,0.05), rgba(255,0,255,0.05), rgba(255,255,255,0.03));
-      background-size: 400% 400%;
-      animation: shimmer 60s ease infinite;
-      z-index: -1;
-      filter: blur(60px);
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
-    }
-
-    .profile {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .profile img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid #4CAF50;
-      box-shadow: 0 0 15px #4CAF50;
-    }
-
-    .profile h2 {
-      margin: 15px 0 5px;
-    }
-
-    .profile p {
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .payment-method {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .payment-method h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      color: #7fffd4;
-    }
-
-    .number-box {
-      background: rgba(0, 0, 0, 0.2);
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 16px;
-      border: 1px solid #333;
-      margin-bottom: 10px;
-      word-break: break-word;
-      color: #fff;
-    }
-
-    button.copy-btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      font-size: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.3s;
-    }
-
-    button.copy-btn:hover {
-      background-color: #45a049;
-    }
-
-    .footer-note {
-      text-align: center;
-      font-size: 13px;
-      color: #aaa;
-      margin-top: 25px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - Solusi Pembayaran Modern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-gradient {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.8s ease-out forwards;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body>
-
-  <div class="hologram"></div>
-
-  <div class="container">
-    <div class="profile">
-      <img src="https://files.catbox.moe/8euuai.jpg" alt="Foto Profil">
-      <h2>XvinzzYap</h2>
-      <p>Developer & Admin | Transfer ke salah satu metode berikut</p>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Loading Animation -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="text-center">
+            <div class="loader mb-4"></div>
+            <p class="text-white font-semibold">Memuat...</p>
+        </div>
     </div>
 
-    <div class="payment-method">
-      <h3>DANA</h3>
-      <div class="number-box" id="dana-number">082133051495</div>
-      <button class="copy-btn" onclick="copyText('dana-number')">Salin Nomor DANA</button>
+    <!-- Animated Background -->
+    <div class="fixed inset-0 animate-gradient z-0"></div>
+    
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-effect fixed top-0 w-full z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/739b34ab-ba76-4ea0-acff-e0c77f836193.png" alt="Logo Payment Gateway - Modern digital payment solution icon with gradient colors" class="w-10 h-10 rounded-lg">
+                    <span class="text-xl font-bold">PayGate</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="hover:text-blue-300 transition-colors">Home</a>
+                    <a href="payment.html" class="hover:text-blue-300 transition-colors">Payment</a>
+                    <a href="about.html" class="hover:text-blue-300 transition-colors">Tentang Saya</a>
+                    <a href="testimonials.html" class="hover:text-blue-300 transition-colors">Testimoni</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="index.html" class="text-2xl font-semibold hover:text-blue-300 transition-colors">Home</a>
+            <a href="payment.html" class="text-2xl font-semibold hover:text-blue-300 transition-colors">Payment</a>
+            <a href="about.html" class="text-2xl font-semibold hover:text-blue-300 transition-colors">Tentang Saya</a>
+            <a href="testimonials.html" class="text-2xl font-semibold hover:text-blue-300 transition-colors">Testimoni</a>
+            <button id="close-menu" class="absolute top-6 right-6 text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
     </div>
 
-    <div class="payment-method">
-      <h3>OVO</h3>
-      <div class="number-box" id="ovo-number">082133051495</div>
-      <button class="copy-btn" onclick="copyText('ovo-number')">Salin Nomor OVO</button>
-    </div>
+    <!-- Main Content -->
+    <main class="relative z-10 pt-24 pb-16">
+        <div class="container mx-auto px-6">
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <div class="animate-float mb-8">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/45910e06-659e-41b4-9758-e6be678c72a5.png" alt="Main Payment Gateway Logo - Modern abstract payment icon with glowing effect" class="w-32 h-32 mx-auto rounded-full border-4 border-white border-opacity-20">
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 animate-fade-in-up">
+                    Terima Kasih!
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.3s">
+                    Selamat datang di platform pembayaran modern yang aman dan terpercaya. 
+                    Layanan pembayaran terbaik untuk kebutuhan digital Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 0.6s">
+                    <a href="payment.html" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors animate-pulse-slow">
+                        Mulai Pembayaran
+                    </a>
+                    <a href="testimonials.html" class="glass-effect hover:bg-white hover:bg-opacity-20 text-white px-8 py-4 rounded-lg font-semibold transition-colors">
+                        Lihat Testimoni
+                    </a>
+                </div>
+            </div>
 
-    <div class="payment-method">
-      <h3>GoPay</h3>
-      <div class="number-box" id="gopay-number">082133051495</div>
-      <button class="copy-btn" onclick="copyText('gopay-number')">Salin Nomor GoPay</button>
-    </div>
+            <!-- Features Grid -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="glass-effect p-6 rounded-xl text-center animate-scale-in" style="animation-delay: 0.9s">
+                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Pembayaran Aman</h3>
+                    <p class="text-gray-300">Transaksi dilindungi dengan enkripsi tingkat tinggi untuk keamanan maksimal.</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl text-center animate-scale-in" style="animation-delay: 1.1s">
+                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Proses Cepat</h3>
+                    <p class="text-gray-300">Pembayaran diproses secara instan tanpa delay yang berarti.</p>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl text-center animate-scale-in" style="animation-delay: 1.3s">
+                    <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">24/7 Support</h3>
+                    <p class="text-gray-300">Tim support siap membantu Anda kapan saja, 24 jam sehari.</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <div class="footer-note">
-      Kirim bukti transfer ke WhatsApp/Telegram untuk konfirmasi.
-    </div>
-  </div>
+    <!-- Footer -->
+    <footer class="glass-effect mt-auto py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-300">© 2024 PayGate. All rights reserved.</p>
+        </div>
+    </footer>
 
-  <script>
-    function copyText(id) {
-      const text = document.getElementById(id).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Nomor berhasil disalin: " + text);
-      });
-    }
-  </script>
+    <script>
+        // Loading animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.style.opacity = '0';
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 2000);
+        });
 
+        // Particles animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-menu').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        });
+        
+        // Close menu when clicking on links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Initialize particles
+        createParticles();
+    </script>
 </body>
 </html>
+
